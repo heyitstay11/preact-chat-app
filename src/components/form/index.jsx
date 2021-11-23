@@ -2,13 +2,13 @@ import { route } from 'preact-router';
 import { useUserContext } from '../../context';
 
 const Join = () => {
-    const {user, setUser} = useUserContext();
+    const {setUser} = useUserContext();
 
    const handleSubmit = (e) => {
        e.preventDefault()
        const [name , room] = [e.target.name.value,  e.target.room.value];
        if(name && room){
-        setUser({name, room});
+        setUser({name: name, room: room});
         route('/chat');
        }
           
