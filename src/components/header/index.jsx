@@ -7,8 +7,8 @@ return (
         <nav>
             <ul className="flex px-4 text-lg">
                 <li ><Link className="text-white no-underline hover:opacity-90" href="/">Home</Link></li>
-                <li className="pl-4"><Link className="text-white no-underline hover:opacity-90" href="/join">Join</Link></li>
-                <li className="pl-4"><Link className="text-white no-underline hover:opacity-90" href="/chat">Chat</Link></li>
+                <li className="pl-6"><Link className="text-white no-underline hover:opacity-90" href="/join">Join</Link></li>
+                <li className="pl-6"><Link className="text-white no-underline hover:opacity-90" href="/chat">Chat</Link></li>
             </ul>
         </nav>
     </header>

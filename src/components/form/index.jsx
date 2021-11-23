@@ -1,6 +1,8 @@
 import { route } from 'preact-router';
+import { useUserContext } from '../../context';
 
-const Join = ({ setUser, user }) => {
+const Join = () => {
+    const {user, setUser} = useUserContext();
 
    const handleSubmit = (e) => {
        e.preventDefault()

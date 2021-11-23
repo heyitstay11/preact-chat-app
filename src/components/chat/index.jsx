@@ -1,9 +1,9 @@
 import './style.css';
+import { useUserContext } from '../../context';
 
-const Chat = ({user}) => {
-    
+const Chat = () => {
+    const {user} = useUserContext();
     console.log(user);
-
     return (
         <div class="mx-auto max-w-lg text-center px-2 py-4">
         <p  class="py-2 text-2xl">No Room Joined</p>

@@ -4,18 +4,20 @@ import { Router } from 'preact-router';
 import Home from "./components/home";
 import Join from "./components/form";
 import Chat from './components/chat';
+import { UserProvider } from './context';
 
 const App = () => {
-  const [user, setUser] = useState({name: '', room: ''});
- 
+
   return (
       <div>
+      <UserProvider>
        <Header />
-       <Router>
-         <Home path="/" />
-         <Join path="/join" user={user} setUser={setUser} />
-         <Chat path="/chat" user={user}/>
-       </Router>
+          <Router>
+            <Home path="/" />
+            <Join path="/join" />
+            <Chat path="/chat" />
+          </Router>
+      </UserProvider>
       </div>
   )
 }
