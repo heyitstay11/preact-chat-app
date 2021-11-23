@@ -1,21 +1,26 @@
 import { useContext, useState, useEffect, useRef } from 'preact/hooks';
 import { createContext } from 'preact';
 import { io } from 'socket.io-client';
-
 const UserContext = createContext();
+let socket;
 
 const UserProvider = ({ children }) => {
    const [user, setUser] = useState({name: '', room: ''});
    const [messages, setMessages] = useState([]);
    const chatBox = useRef(null);
 
-   const socket = io('http://localhost:5000/');
+   useEffect(() => {
+     socket = io('https://abchatt.herokuapp.com/');
+     socket.on('message', ({ user, text, id = (Math.random() * 1000).toString()}) => {
+        setMessages((prevMessages) => [...prevMessages, {user, text, id}]);
+    })
+   },[])
 
     useEffect(() => {
-        if(user.name && user.room){
+        if(user.name && user.room && socket){
             joinRoom();
         }
-    }, [user]);
+    }, [user.room]);
 
     useEffect(() => {
         if(chatBox.current){
@@ -23,9 +28,6 @@ const UserProvider = ({ children }) => {
         }
     }, [messages])
 
-   socket.on('message', ({ user, text, id = (Math.random() * 1000).toString() }) => {
-        setMessages((prevMessages) => [...prevMessages, {user, text, id}]);
-   })
 
    const joinRoom = () => {
      socket.emit('join', {name : user.name, room: user.room}, (cb) => {

@@ -46,9 +46,9 @@ const Chat = () => {
             </div>
             <form id="message-form" onSubmit={handleSubmit} class="flex flex-col">
                 <label for="message" class="text-left text-lg mb-1">Message:</label>
-                <div class="flex">
-                    <input name="message" id="inputmessage" class="flex-1 text-xl pl-3" autoComplete='off'></input>
-                    <button type="submit" id="send" class='button' >Send</button>
+                <div class="flex flex-wrap">
+                    <input name="message" id="inputmessage" class="flex-grow text-xl pl-3 w-auto max-w-full" autoComplete='off'></input>
+                    <button type="submit" id="send" class='button ml-auto' >Send</button>
                 </div>
             </form>
         </div>
