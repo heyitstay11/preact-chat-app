@@ -5,3 +5,14 @@
 .author{
     @apply bg-purple-700 text-white text-sm px-3 py-3px rounded-xl;
 }
+
+.button:focus{
+    outline: 3px solid deeppink;
+}
+
+.chatbox:focus{
+    outline-offset: .5em;
+    outline-style: dashed;
+    outline-color: blueviolet;
+    outline-width: 3px;
+}

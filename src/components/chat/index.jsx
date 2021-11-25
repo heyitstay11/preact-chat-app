@@ -1,29 +1,27 @@
 import './style.css';
 import { useUserContext } from '../../context';
+import Message from '../message';
 
 const Chat = () => {
-    const {user, messages, sendMessage, chatBox} = useUserContext();
+    const {user, messages, sendMessage, chatBox, editMode, sendDelete, editMessageText} = useUserContext();
     const handleSubmit =(e) => {
         e.preventDefault();
-        const message = e.target.message.value;
+        const message = e.target.message.value.trim();
         if(message){
             e.target.message.value = '';
             sendMessage(message);
         }
     }
     return (
-        <div class="mx-auto max-w-lg text-center px-2 py-4">
+        <section class="mx-auto max-w-lg text-center px-2 py-4">
         <p  class="py-2 text-2xl">{ user.room ? `Room ~ ${user.room}` : 'No Room Joined' }</p>
         <div class="chat-wrapper bg-gray-100 my-4 mx-4 p-2 rounded-md">
-            <div id="chatbox" ref={chatBox} class="min-h-250px max-h-250px overflow-y-auto">
+            <div id="chatbox" ref={chatBox} class="min-h-250px max-h-250px overflow-y-auto chatbox" tabIndex="0" >
                 {messages.length > 0 ? 
                     messages.map(message => {
-                        const {user: author, id, text} = message;
+                        const {user, id, text} = message;
                         return (
-                        <div class={`flex flex-col ${author === user.name ? 'items-end cursor-pointer' : 'items-start' } items-start p-2`} key={id} >
-                            <span class="author">{author}</span>
-                            <span class="text-lg max-w-90 overflow-x-hidden break-word">{text}</span>
-                        </div>
+                            <Message  key={id} mKey={id} author={user} text={text} />
                         )
                     })
                  : (
@@ -47,12 +45,15 @@ const Chat = () => {
             <form id="message-form" onSubmit={handleSubmit} class="flex flex-col">
                 <label for="message" class="text-left text-lg mb-1">Message:</label>
                 <div class="flex flex-wrap">
-                    <input name="message" id="inputmessage" class="flex-grow text-xl pl-3 w-auto max-w-full" autoComplete='off'></input>
-                    <button type="submit" id="send" class='button ml-auto' >Send</button>
+                    <input name="message" id="inputmessage"  value={editMessageText ? editMessageText : ''} class="flex-grow text-xl pl-3 w-auto max-w-full" autoComplete='off'></input>
+                    <button type="submit" id="send" class='button ml-auto' >{editMode === true ? 'EDIT' : 'SEND'}</button>
+                    {editMode === true ? (
+                       <button type="button" id="send" class='button' onClick={sendDelete} >Del</button>
+                    ) : null}
                 </div>
             </form>
         </div>
-    </div>
+    </section>
     )
 }
 
