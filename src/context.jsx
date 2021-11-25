@@ -28,6 +28,7 @@ const UserProvider = ({ children }) => {
     });
 
     socket.on('chatHistory', ({ messages }) => {
+        if(messages.length <= 0) return;
         setMessages((prevMessages) => [
         ...messages, 
         {user: '---   CHAT HISTORY   ---', text: '', id: 'chat-history' },
