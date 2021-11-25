@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
 
    useEffect(() => {
      socket = io('https://abchatt.herokuapp.com/');
-     
+
      socket.on('message', ({ user, text, id = (Math.random() * 1000).toString()}) => {
         setMessages((prevMessages) => [...prevMessages, {user, text, id}]);
      })
@@ -26,6 +26,13 @@ const UserProvider = ({ children }) => {
     socket.on('editMessage', ({user, text, id}) => {
         editMessage(user, text, id);
     });
+
+    socket.on('chatHistory', ({ messages }) => {
+        setMessages((prevMessages) => [
+        ...messages, 
+        {user: '---   CHAT HISTORY   ---', text: '', id: 'chat-history' },
+        ...prevMessages
+    ]);});
    },[])
 
     useEffect(() => {
@@ -59,7 +66,9 @@ const UserProvider = ({ children }) => {
 
    const sendMessage = (message) => {
        if(editKey && editMode){
-            socket.emit('newEditMessage', {username: user.name, room: user.room, text: message, id: editKey}, (cb) => {
+            socket.emit('newEditMessage', 
+            {username: user.name, room: user.room, text: message, id: editKey},
+             (cb) => {
                 if(cb && cb.error){
                     return console.log(cb.error);
                 }});

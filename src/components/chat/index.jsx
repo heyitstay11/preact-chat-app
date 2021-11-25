@@ -16,7 +16,7 @@ const Chat = () => {
         <section class="mx-auto max-w-lg text-center px-2 py-4">
         <p  class="py-2 text-2xl">{ user.room ? `Room ~ ${user.room}` : 'No Room Joined' }</p>
         <div class="chat-wrapper bg-gray-100 my-4 mx-4 p-2 rounded-md">
-            <div id="chatbox" ref={chatBox} class="min-h-250px max-h-250px overflow-y-auto chatbox" tabIndex="0" >
+            <div id="chatbox" ref={chatBox} class="min-h-250px max-h-250px overflow-y-auto scrollbar scrollbar-thumb-purple-700 hover:scrollbar-thumb-purple-900 chatbox" tabIndex="0" >
                 {messages.length > 0 ? 
                     messages.map(message => {
                         const {user, id, text} = message;
