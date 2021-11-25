@@ -1,4 +1,3 @@
-import './style.css';
 import { useUserContext } from '../../context';
 import Message from '../message';
 

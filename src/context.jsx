@@ -28,12 +28,12 @@ const UserProvider = ({ children }) => {
     });
 
     socket.on('chatHistory', ({ messages }) => {
-        if(messages.length <= 0) return;
         setMessages((prevMessages) => [
         ...messages, 
-        {user: '---   CHAT HISTORY   ---', text: '', id: 'chat-history' },
+        {user: '--- CHAT HISTORY ---', text: '', id: 'chat-history' },
         ...prevMessages
-    ]);});
+    ]);
+    });
    },[])
 
     useEffect(() => {
@@ -67,9 +67,7 @@ const UserProvider = ({ children }) => {
 
    const sendMessage = (message) => {
        if(editKey && editMode){
-            socket.emit('newEditMessage', 
-            {username: user.name, room: user.room, text: message, id: editKey},
-             (cb) => {
+            socket.emit('newEditMessage', {username: user.name, room: user.room, text: message, id: editKey}, (cb) => {
                 if(cb && cb.error){
                     return console.log(cb.error);
                 }});

@@ -28,7 +28,7 @@ const Join = () => {
                 <input placeholder="Football" type="text" class="border-gray-500 text-lg"
                 pattern="[a-zA-Z0-9]{4,12}"  title="no special characters allowed, length between 4 to 12 characters" required id="room" name="room" maxlength="12" />
                 
-                <button class="button w-6rem mx-auto my-4" aria-label="submit join form" >Submit</button>
+                <button class="inline-block w-auto no-underline text-lg text-white bg-purple-700 px-4 py-1 rounded-sm hover:bg-purple-900 w-6rem mx-auto my-4" aria-label="submit join form" >Submit</button>
             </form>
         </div>
     )
