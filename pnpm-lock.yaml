@@ -4,7 +4,6 @@ specifiers:
   '@preact/preset-vite': ^2.0.0
   '@windicss/plugin-scrollbar': ^1.2.3
   preact: ^10.5.13
-  preact-async-route: ^2.2.1
   preact-router: ^3.2.1
   socket.io-client: ^4.4.0
   vite: ^2.6.4
@@ -19,7 +18,6 @@ dependencies:
 
 devDependencies:
   '@preact/preset-vite': 2.1.5_preact@10.5.15+vite@2.6.14
-  preact-async-route: 2.2.1
   vite: 2.6.14
   vite-plugin-windicss: 1.5.1_vite@2.6.14
   windicss: 3.2.1
@@ -893,10 +891,6 @@ packages:
       nanoid: 3.1.30
       picocolors: 1.0.0
       source-map-js: 0.6.2
-    dev: true
-
-  /preact-async-route/2.2.1:
-    resolution: {integrity: sha512-8bg1007akXs3YDmzYT4McaTe6ji2FIzcc0/NTlu+vjJaKPNQ8lNG/HQ6LP+FoIxQ4m/KH5vvJCHJN5ADp2iNGA==}
     dev: true
 
   /preact-router/3.2.1_preact@10.5.15:

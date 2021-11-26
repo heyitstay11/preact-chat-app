@@ -1,4 +1,5 @@
 import { useUserContext } from '../../context';
+import List from '../list';
 import Message from '../message';
 
 const Chat = () => {
@@ -52,6 +53,7 @@ const Chat = () => {
                 </div>
             </form>
         </div>
+        <List />
     </section>
     )
 }

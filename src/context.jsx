@@ -10,6 +10,7 @@ const UserProvider = ({ children }) => {
    const [editKey, setEditKey] = useState(false);
    const [editMessageText, setEditMessageText] = useState('');
    const [messages, setMessages] = useState([]);
+   const [participants, setParticipants] = useState([]);
    const chatBox = useRef(null);
 
    useEffect(() => {
@@ -27,13 +28,18 @@ const UserProvider = ({ children }) => {
         editMessage(user, text, id);
     });
 
+    socket.on('pInfo', ({users}) => {
+        setParticipants(users);
+    })
+
     socket.on('chatHistory', ({ messages }) => {
+        if(messages.length < 1) return
         setMessages((prevMessages) => [
         ...messages, 
         {user: '--- CHAT HISTORY ---', text: '', id: 'chat-history' },
         ...prevMessages
     ]);
-    });
+    })
    },[])
 
     useEffect(() => {
@@ -114,6 +120,7 @@ const UserProvider = ({ children }) => {
             chatBox,
             editMode,
             editMessageText,
+            participants,
             setUser,
             sendMessage,
             setEditKey,
