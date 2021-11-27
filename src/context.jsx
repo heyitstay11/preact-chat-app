@@ -1,10 +1,14 @@
 import { useContext, useState, useEffect, useRef } from 'preact/hooks';
 import { createContext } from 'preact';
 import { io } from 'socket.io-client';
+import { useAlertContext } from './alertContext';
+import { route } from 'preact-router';
 const UserContext = createContext();
 let socket;
 
 const UserProvider = ({ children }) => {
+   const { setAlertMessage } = useAlertContext(); 
+
    const [user, setUser] = useState({name: '', room: ''});
    const [editMode, setEditMode] = useState(false);
    const [editKey, setEditKey] = useState(false);
@@ -44,6 +48,7 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         if(user.name && user.room && socket){
+            route('/chat');
             joinRoom();
         }
     }, [user.room]);
@@ -52,15 +57,19 @@ const UserProvider = ({ children }) => {
         if(chatBox.current){
             chatBox.current.scrollTop = chatBox.current.scrollHeight;
         }
+        console.log('move chatbar')
     }, [messages]);
 
    const joinRoom = () => {
      socket.emit('join', {name : user.name, room: user.room}, (cb) => {
        if(cb.error){
-          return console.log(cb.error);
+           setAlertMessage(cb.error);
+           setUser({name: '', room: ''});
+          return false;
        }
        if(cb.status === 'joined'){
-          console.log('Joined Successfully');
+          console.log('Joined')
+          return true;
        } 
      });
    }
@@ -122,6 +131,7 @@ const UserProvider = ({ children }) => {
             editMessageText,
             participants,
             setUser,
+            joinRoom,
             sendMessage,
             setEditKey,
             setEditMode,

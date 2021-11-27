@@ -8,8 +8,8 @@ const Join = () => {
        e.preventDefault()
        const [name , room] = [e.target.name.value,  e.target.room.value];
        if(name && room){
+           console.log('submit');
         setUser({name: name, room: room});
-        route('/chat');
        }
           
    }

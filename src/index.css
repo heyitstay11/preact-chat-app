@@ -10,9 +10,18 @@
     outline: 3px solid deeppink;
 }
 
-.chatbox:focus{
+.chatbox:focus, .toast:focus{
     outline-offset: .5em;
     outline-style: dashed;
     outline-color: blueviolet;
     outline-width: 3px;
+}
+
+.toast{
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast-content{
+    border: 3px solid orange;
 }
