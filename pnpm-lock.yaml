@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@preact/preset-vite': ^2.0.0
   '@windicss/plugin-scrollbar': ^1.2.3
+  nanoid: ^3.1.30
   preact: ^10.5.13
   preact-router: ^3.2.1
   socket.io-client: ^4.4.0
@@ -12,6 +13,7 @@ specifiers:
 
 dependencies:
   '@windicss/plugin-scrollbar': 1.2.3
+  nanoid: 3.1.30
   preact: 10.5.15
   preact-router: 3.2.1_preact@10.5.15
   socket.io-client: 4.4.0
@@ -857,7 +859,6 @@ packages:
     resolution: {integrity: sha512-zJpuPDwOv8D2zq2WRoMe1HsfZthVewpel9CAvTfc/2mBD1uUT/agc5f7GHGWXlYkFvi1mVxe4IjvP2HNrop7nQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: true
 
   /node-releases/2.0.1:
     resolution: {integrity: sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA==}

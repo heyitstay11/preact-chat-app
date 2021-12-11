@@ -4,8 +4,7 @@ import { route } from 'preact-router';
 const Toast = () => {   
     const {alertMessage, setAlertMessage, alertRef} = useAlertContext();
     const handleClose = () => {
-        setAlertMessage('')
-        route('/join')
+        setAlertMessage('');
     }
 
     return (

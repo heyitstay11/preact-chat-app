@@ -18,7 +18,8 @@ const UserProvider = ({ children }) => {
    const chatBox = useRef(null);
 
    useEffect(() => {
-     socket = io('https://abchatt.herokuapp.com/');
+    //  socket = io('https://abchatt.herokuapp.com/');
+     socket = io(`${import.meta.env.VITE_BASE_URL}`);
 
      socket.on('message', ({ user, text, id = (Math.random() * 1000).toString()}) => {
         setMessages((prevMessages) => [...prevMessages, {user, text, id}]);
@@ -57,7 +58,6 @@ const UserProvider = ({ children }) => {
         if(chatBox.current){
             chatBox.current.scrollTop = chatBox.current.scrollHeight;
         }
-        console.log('move chatbar')
     }, [messages]);
 
    const joinRoom = () => {
@@ -130,6 +130,7 @@ const UserProvider = ({ children }) => {
             editMode,
             editMessageText,
             participants,
+            socket,
             setUser,
             joinRoom,
             sendMessage,

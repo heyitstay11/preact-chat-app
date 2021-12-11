@@ -15,7 +15,7 @@ const Message = ({author, text, mKey}) => {
             handleSelect()
         }
     }
-    const myMessage =  author === user.name ? true : false;
+    const myMessage =  author === user.name;
     return (
         <div tabIndex={`${ myMessage ? '0' : '-1' }`}
          class={`flex flex-col ${author === user.name ? 'items-end cursor-pointer' : 'items-start' } items-start p-2`} 
