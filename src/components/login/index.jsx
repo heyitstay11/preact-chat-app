@@ -53,6 +53,7 @@ return (
       <button class="button w-min mx-auto mt-4" type="submit">Submit</button>
     </form>
     <p class="text-center text-lg">Don't have an account, <Link class="text-purple-700 text-xl ml-1" href="/signup">Signup</Link></p>
+    <p class="text-center text-lg mt-2 ">Use email: test@mail.com, password: test1234 for testing <span class="font-bold text-xl" aria-hidden="true">😊</span> </p>
   </main>
 )
 }
