@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useCallback, useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
 import { route } from 'preact-router';
 import { useAlertContext } from '../../alertContext';
@@ -7,17 +7,14 @@ import { useAuthContext } from '../../authContext';
 const Login = () => {
 const { setUser } = useAuthContext();
 const { setAlertMessage } = useAlertContext(); 
-const [formData, setFormData] = useState({
-    email:'',
-    password:''
-});
+const [formData, setFormData] = useState({email:'',password:''});
 
-const handleInput = (e) => {
+const handleInput = useCallback((e) => {
     const [property, value] = [e.target.name, e.target.value];
     setFormData({...formData, [property]: value});
-}
+});
 
-const handleSubmit = async (e) => {
+const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     try{
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/login`, {
@@ -35,9 +32,8 @@ const handleSubmit = async (e) => {
       }
     }catch(err){
       console.log(err);
-      setAlertMessage(JSON.stringify(err));
     }
-}
+});
 
 return (
     <main>

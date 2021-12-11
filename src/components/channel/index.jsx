@@ -11,9 +11,7 @@ const Channel = ({ id }) => {
     const chatBox = useRef(null);
 
     const joinRoom = useCallback(() => {
-        socket.emit('p-join', {id}, cb => {
-            console.log('joined');
-        });
+        socket.emit('p-join', {id}, cb => {});
     });
 
 

@@ -5,35 +5,10 @@ import { useAlertContext } from '../../alertContext';
 
 
 const Home = () => {
-  const { user, setUser } = useAuthContext();
+  const { user, setUser, channels, fetchChannels } = useAuthContext();
   const { setAlertMessage } = useAlertContext();
-  const [channels, setChannels] = useState([]);
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState({});
-
-
-  const fetchChannels = useCallback(async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/channel/user/${user.id}`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Auth-Token': user.token
-        }
-      });
-      const data = await res.json();
-      if(res.status === 200){
-        console.log(channels.length , channels)
-        setChannels(() => data.channels);
-      }else{
-        console.log(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
 
   const handleLogout = useCallback(async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}`+'/auth/logout', {
@@ -47,6 +22,7 @@ const Home = () => {
     const data = await res.json();
     setUser({email: '', token: '', id: ''});
   });
+
 
   const handleSearch = useCallback(async (e) => {
     e.preventDefault();
@@ -68,6 +44,7 @@ const Home = () => {
     }
   });
 
+
   const handleAdd = useCallback(async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/channel`, {
@@ -77,7 +54,7 @@ const Home = () => {
           'Content-Type': 'application/json',
           'X-Auth-Token': user.token
         },
-        body: JSON.stringify({ user1: {id : user.id, name: user.name }, user2: {id : searchResult._id, name: searchResult.username }})
+        body: JSON.stringify({ user1: { id : user.id, name: user.name }, user2: {id : searchResult._id, name: searchResult.username }})
       });
       const data = await res.json();
       fetchChannels()
@@ -89,12 +66,6 @@ const Home = () => {
       console.log(error);
     }
   });
-
-  useEffect(async () => {
-    if(user.id){
-      fetchChannels();
-    } 
-  }, [user]);
 
 return (
   <div class="mx-auto max-w-2xl text-center px-2">
@@ -116,9 +87,10 @@ return (
         <button class="button" onClick={handleAdd} >Add</button>
       </div>
       ) : null}
+      <div class="h-3px w-full bg-purple-700 mt-6 mb-2"></div>
       <div class=" flex flex-col text-left my-2 ml-2">
-      {channels.length > 0 && (<h2 class="text-2xl">Chats</h2>)}
-      {channels.length > 0 &&
+      {(channels && channels.length > 0 )&& (<h2 class="text-2xl font-500 ">Chats</h2>)}
+      {(channels && channels.length) > 0 &&
           channels.map((channel) => {
             return <a class="button mt-2 w-min" href={`/channel/${channel._id}`}>
                       {channel.title.replace(user.name, '')}
