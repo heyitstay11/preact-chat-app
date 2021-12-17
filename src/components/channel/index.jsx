@@ -5,10 +5,12 @@ import { useUserContext } from "../../context";
 
 const Channel = ({ id }) => {
     const { socket } = useUserContext();
-    const { user } = useAuthContext();
-    const [channelData, setChannelData] = useState('');
+    const { user, channels } = useAuthContext();
+    const [isLoading, setIsLoading] = useState(false);
     const [messages, setMessages] = useState([]);
     const chatBox = useRef(null);
+
+    const channelTitle = channels.find(channel => channel._id === id)?.title.replace(user.name,'');
 
     const joinRoom = useCallback(() => {
         socket.emit('p-join', {id}, cb => {});
@@ -17,6 +19,7 @@ const Channel = ({ id }) => {
 
     const fetchMessages = async () => {
         try {
+            setIsLoading(true);
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/message/${id}`, {
                 method: 'GET',
                 credentials: 'include',
@@ -27,10 +30,12 @@ const Channel = ({ id }) => {
             });
             const data = await res.json();
             if(res.status === 200){
-                setMessages(data.messages);
+                setMessages(prevMessages => [...prevMessages, ...data.messages]);
                 joinRoom();
             }
+            setIsLoading(false);
         } catch (error) {
+            setIsLoading(false);
             console.log(error);
         }
     }
@@ -69,18 +74,6 @@ const Channel = ({ id }) => {
     }
 
 
-    useEffect(async () => {
-        try {
-            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/channel/${id}`);
-            const data = await res.json();
-            const title = data.channel.title.replace(user.name,'');
-            setChannelData(title);
-        } catch (error) {
-            console.log(error);
-        }
-    },[user, id]);
-
-
     useEffect(() => {
         fetchMessages();
         if(socket){
@@ -103,11 +96,19 @@ const Channel = ({ id }) => {
 
     return (
         <>
-        <h1 class="text-center my-4 text-2xl">{channelData}</h1>
+        <h1 class="text-center my-4 text-2xl">{channelTitle}</h1>
         <div class="chat-wrapper w-min-92/100 sm:w-max-xl  mx-auto bg-gray-100 my-4 p-2 rounded-md">
         <div id="chatbox" ref={chatBox} 
          class="min-h-250px max-h-250px overflow-y-auto scrollbar scrollbar-thumb-purple-700 hover:scrollbar-thumb-purple-900 chatbox" tabIndex="0" >
-           {messages.length > 0 ? 
+           {isLoading ?
+           (<div class="flex flex-col items-start p-2">
+            <span class="author">admin</span>
+            <span class="text-lg">fetching messages ...</span>
+            </div>)
+            :
+           null
+           }
+           {(messages.length > 0) ? 
             messages.map((message) => {
                 const {sender, text, msg_id} = message;
                 const myMessage = user.name === sender;
@@ -117,11 +118,12 @@ const Channel = ({ id }) => {
                    <span class="text-lg max-w-90 overflow-x-hidden break-word">{text}</span>
                </div>
             })
-            : 
-            (<div class="flex flex-col items-start p-2">
-                <span class="author">admin</span>
-                <span class="text-lg">No messages</span>
-            </div>)}
+            : [ !isLoading &&
+                (<div class="flex flex-col items-start p-2">
+                    <span class="author">admin</span>
+                    <span class="text-lg">No messages</span>
+                </div>)
+            ]}
         </div>
         <form id="message-form" onSubmit={handleSubmit} class="flex flex-col">
             <label for="message" class="text-left text-lg mb-1">Message:</label>

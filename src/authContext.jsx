@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
           });
           const data = await res.json();
           if(res.status === 200){
-              console.log(data.channels);
             setChannels([...data.channels]);
           }else{
             console.log(data);
