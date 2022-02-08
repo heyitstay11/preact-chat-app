@@ -6,13 +6,13 @@ const Header = () => {
     const { user } = useAuthContext();
 
 return (
-    <header className="bg-purple-700 text-white flex flex-wrap items-center justify-between px-4 py-3">
+    <header className="bg-purple-700 text-white flex md:flex-row flex-col flex-wrap items-center justify-between px-4 py-3">
         <div class="brand text-3xl flex px-2">
             <img src={logo} alt="" height="30" width="30"  />    
             <span className='ml-2'>Chat App</span>
         </div>
         <nav>
-            <ul className="flex px-4 text-xl">
+            <ul className="flex px-4 md:text-xl text-lg md:my-0 my-2">
                 <li ><Link className="text-white no-underline hover:opacity-90" href="/">Home</Link></li>
                 <li className="pl-6"><Link className="text-white no-underline hover:opacity-90" href="/join">Quick Room</Link></li>
                 {(user.email && user.token) ? null : (

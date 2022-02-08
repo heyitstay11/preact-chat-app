@@ -36,20 +36,25 @@ const handleSubmit = useCallback(async (e) => {
 });
 
 return (
-    <main>
-    <h1 class="text-4xl text-center my-4 text-purple-700">Login</h1>
-    <form onSubmit={handleSubmit} class="flex flex-col w-400px max-w-92/100 mx-auto my-6" >
-      
-      <label htmlFor="email" class="text-xl mt-4">Email *</label>
-      <input onInput={handleInput} value={formData.email} id="email" name="email" type="email" required />
+    <main class="mx-auto lg:max-w-4xl text-center px-2 py-12 flex">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:pr-15 lg:block hidden">
+          <img class="object-cover object-center rounded" alt="hero" src="./chatapp.png" />
+      </div>
+      <div className="mx-auto">
+        <h1 class="text-4xl font-400 text-center my-4 text-purple-800">Login</h1>
+        <form onSubmit={handleSubmit} class="flex flex-col w-full lg:max-w-full max-w-90/100 mx-auto" >
+        
+        <label htmlFor="email" class="text-xl text-left py-1 mt-4">Email *</label>
+        <input onInput={handleInput} value={formData.email} id="email" name="email" type="email" required />
 
-      <label htmlFor="password" class="text-xl mt-4">Password *</label>
-      <input onInput={handleInput} value={formData.password}id="password" name="password" type="password" required />
+        <label htmlFor="password" class="text-xl text-left py-1 mt-4">Password *</label>
+        <input onInput={handleInput} value={formData.password}id="password" name="password" type="password" required />
 
-      <button class="button w-min mx-auto mt-4" type="submit">Submit</button>
-    </form>
-    <p class="text-center text-lg">Don't have an account, <Link class="text-purple-700 text-xl ml-1" href="/signup">Signup</Link></p>
-    <p class="text-center text-lg mt-2 ">Use email: test@mail.com, password: test1234 for testing <span class="font-bold text-xl" aria-hidden="true">😊</span> </p>
+        <button class="button block w-auto mt-4 py-3 text-xl" type="submit">Submit</button>
+        </form>
+        <p class="text-center text-lg">Don't have an account, <Link class="text-purple-700 text-xl ml-1" href="/signup">Signup</Link></p>
+        <p class="text-center text-lg mt-2 ">Use email: test@mail.com, password: test1234 for testing <span class="font-bold text-xl" aria-hidden="true">😊</span> </p>
+      </div>
   </main>
 )
 }
