@@ -246,17 +246,10 @@ const Channel = ({ id }) => {
             </div>
         </form>
     </div>
-    {isOnline ?
-    <div className="flex align-center">
-        <button onClick={handleCall} class="inline-flex m-auto text-white bg-purple-700 border-0 py-3 px-7 focus:outline-none hover:bg-purple-600 rounded text-lg button">
-            {call?.isReceivingCall ? 'Answer Call' : 'Start a video call'}
-        </button>
-    </div>
-    : null}
 
     {
         isModalOpen ? 
-        (<div className="container mx-auto flex gap-10 px-5 py-20 md:flex-row justify-between flex-col items-center w-7/9">
+        (<div className="container mx-auto flex gap-10 px-5 py-20 md:flex-row justify-between flex-col items-center w-6/9">
        
             <video playsInline muted ref={myVideo} autoPlay height={300} width={300}  />
             {callAccepted && ( <video playsInline ref={userVideo} autoPlay height={300} width={300} />)}
@@ -265,6 +258,15 @@ const Channel = ({ id }) => {
         : 
         null
     }
+
+
+    {isOnline ?
+    <div className="flex align-center">
+        <button onClick={handleCall} class="inline-flex m-auto text-white bg-purple-700 border-0 py-3 px-7 focus:outline-none hover:bg-purple-600 rounded text-lg button">
+            {call?.isReceivingCall ? 'Answer Call' : 'Start a video call'}
+        </button>
+    </div>
+    : null}
        
     </>
     )
