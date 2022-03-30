@@ -79,7 +79,7 @@ const Channel = ({ id }) => {
     }
 
     const callUser = () => {
-
+        setIsModalOpen(true);
         // create peer connection
         const peer = new Peer({ initiator: true, trickle: false, stream});
 
@@ -103,12 +103,10 @@ const Channel = ({ id }) => {
 
         connectionRef.current = peer;
         console.log('inside-call', socket);
-        setIsModalOpen(true);
     }
 
     const answerCall = () => {
         setCallAccepted(true);
-        setIsModalOpen(true);
 
         const peer = new Peer({ initiator: false, trickle: false, stream });
 
@@ -125,6 +123,7 @@ const Channel = ({ id }) => {
         console.log(call.signal);
 
         connectionRef.current = peer;
+        setIsModalOpen(true);
     }
 
     const leaveCall = () => {
@@ -179,6 +178,12 @@ const Channel = ({ id }) => {
                 console.log(sender, senderId);
                 setCall({ isReceivingCall: true, sender, signal, senderId });
             });
+
+            socket.on('call-ended', ({id}) => {
+                leaveCall();
+            })
+
+
         }
         return () => {
             if(socket){
@@ -195,6 +200,7 @@ const Channel = ({ id }) => {
 
     useEffect(() => {
       
+        // if(isModalOpen){
             navigator.mediaDevices.getUserMedia(
                 {video: true, audio: true}
             ).then((myStream) => {
@@ -202,6 +208,7 @@ const Channel = ({ id }) => {
                 myVideo.current.srcObject = myStream;
                 console.log('Video streaming', myStream);
             }).catch((err) => console.log('Video Failed'));
+        // }
        
     }, [isModalOpen]);
 

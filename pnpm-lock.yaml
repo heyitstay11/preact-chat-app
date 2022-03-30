@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@preact/preset-vite': ^2.0.0
   '@windicss/plugin-scrollbar': ^1.2.3
+  events: ^3.3.0
   nanoid: ^3.1.30
   preact: ^10.5.13
   preact-router: ^3.2.1
@@ -14,6 +15,7 @@ specifiers:
 
 dependencies:
   '@windicss/plugin-scrollbar': 1.2.3
+  events: 3.3.0
   nanoid: 3.1.30
   preact: 10.5.15
   preact-router: 3.2.1_preact@10.5.15
@@ -721,6 +723,11 @@ packages:
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
     dev: true
+
+  /events/3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+    dev: false
 
   /fast-glob/3.2.7:
     resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}

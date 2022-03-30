@@ -16,6 +16,7 @@ const UserProvider = ({ children }) => {
    const [messages, setMessages] = useState([]);
    const [participants, setParticipants] = useState([]);
    const chatBox = useRef(null);
+   const [call, setCall] = useState({});
 
    useEffect(() => {
     //  socket = io('https://abchatt.herokuapp.com/');
@@ -131,13 +132,15 @@ const UserProvider = ({ children }) => {
             editMessageText,
             participants,
             socket,
+            call,
             setUser,
             joinRoom,
             sendMessage,
             setEditKey,
             setEditMode,
             sendDelete,
-            setEditMessageText
+            setEditMessageText,
+            setCall,
     }} >
         { children }
     </UserContext.Provider>
